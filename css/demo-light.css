@@ -1,0 +1,20 @@
+body {
+  color: #676767;
+  background-color: #EEEEEE; }
+
+hr {
+  border-color: #DBDBDB; }
+
+h1 {
+  color: #535353; }
+
+.description {
+  color: #676767; }
+
+.controls-block > h2 {
+  color: #535353; }
+
+.control > label {
+  color: #676767; }
+
+/*# sourceMappingURL=demo-light.css.map */

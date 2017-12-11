@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html" charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" type="text/css" href="css/demo-light.css">
+<link rel="stylesheet" type="text/css" href="css/demo.css">
+<link rel="stylesheet" type="text/css" href="css/ui-light.css">
+
+<!-- <link rel="stylesheet" type="text/css" href="css/demo-dark.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="css/demo.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="css/ui-dark.css"> -->
+
+<style>
+.button-group > button {
+  min-width:7em;
+}
+</style>
+
+<title>Paint</title>
+
+</head>
+
+<body>
+  <h1>Paint</h1>
+
+  <section class="description">
+    <p>This project is a WebGL simulation of a dynamic painting running entirely on  GPU.
+      You can interact with it using the left mouse button.
+    </p>
+
+    <a href="https://github.com/piellardj/paint-webgl">More on Github</a>
+  </section>
+
+  <div class="demo">
+    <canvas id="glcanvas" width="768" height="432"></canvas>
+
+    <section class="controls">
+      <section class="controls-block">
+        <h2>Paint</h2>
+        <section class="block-content">
+          <section class="control">
+            <label for="amount-slider">Amount:</label>
+            <input type="range" min="0" max="4" value="2" step="1" class="slider" id="amount-slider">
+          </section>
+          <section class="control">
+            <label for="size-slider">Size:</label>
+            <input type="range" min="0.5" max="5" value="2" step="0.1" class="slider" id="size-slider">
+          </section>
+          <section class="control">
+            <label for="speed-slider">Speed:</label>
+            <input type="range" min="0.1" max="2.9" value="1.5" step="0.1" class="slider" id="speed-slider">
+          </section>
+          <section class="control">
+            <label for="resilience-slider">Resilience:</label>
+            <input type="range" min="0.0" max="1" value="0.3" step="0.01" class="slider" id="resilience-slider">
+          </section>
+        </section>
+      </section>
+      
+      <hr/>
+      
+      <section class="controls-block">
+        <h2>Brush</h2>
+        <section class="block-content">
+          <section class="control">
+            <label for="brush-size-slider">Radius:</label>
+            <input type="range" min="5" max="100" value="40" step="0.1" class="slider" id="brush-size-slider">
+          </section>
+          <section class="control">
+            <label>Show:</label>
+            <div class="checkbox">
+              <input type="checkbox" checked id="show-brush-checkbox">
+              <label for="show-brush-checkbox" class="checkmark-full"></label>
+            </div>
+          </section>
+        </section>
+      </section>
+      
+      <hr/>
+      
+      <section class="controls-block">
+        <h2>Display</h2>
+        <section class="block-content">
+          <section class="control">
+            <label>Background:</label>
+            <div class="checkbox">
+              <input type="checkbox" id="background-checkbox">
+              <label for="background-checkbox" class="checkmark-full"></label>
+            </div>
+          </section>
+        </section>
+      </section>
+        
+      <hr/>
+      
+      <div>fps: <span id="fps-text"></span></div>
+      <div>particles: <span id="nb-particles-text"></span></div>
+    </section>
+  </div>
+
+<script src="scripts/ui.js"></script>
+<script src="scripts/gl-utils.js"></script>
+<script src="scripts/sampler2D.js"></script>
+<script src="scripts/background.js"></script>
+<script src="scripts/flowmap.js"></script>
+<script src="scripts/particles.js"></script>
+<script src="scripts/scene.js"></script>
+<script src="scripts/controls.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+
+</html>
