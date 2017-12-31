@@ -1,7 +1,7 @@
 # Introduction
 Interactive and dynamic painting simulation in WebGL.
 
-Live version [here](https://github.com/piellardj/paint-webgl).
+Live version [here](https://piellardj.github.io/paint-webgl).
 
 This is a WebGL port of the visualization part of my OpenGL project [flow-gpu](https://github.com/piellardj/flow-gpu).
 
