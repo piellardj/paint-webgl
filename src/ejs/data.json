@@ -42,7 +42,13 @@
         "canvas": {
             "id": "glcanvas",
             "width": 768,
-            "height": 432
+            "height": 432,
+            "css": {
+                "width": "100vw",
+                "height": "56vw",
+                "max-width": "1280px",
+                "max-height": "720px"
+            }
         },
         "control_blocks": [
             {

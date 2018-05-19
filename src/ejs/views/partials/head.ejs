@@ -16,14 +16,15 @@
   #_ page.css.forEach(function(css) {
   <link rel="stylesheet" type="text/css" href="#=(css)">
   #_ })
-
+  #_ if (demo.canvas.css) {
+    
   <style>
-    .demo>canvas {
-      width: 100vw;
-      height: 56vw;
-      max-width: 1280px;
-      max-height: 720px;
+    .demo > canvas {
+      #_ for(let property in demo.canvas.css) {
+        #=(property): #=(demo.canvas.css[property]);
+      #_ }
       margin: 0 0 24px 0;
     }
   </style>
+  #_ }
 </head>
