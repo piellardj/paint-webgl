@@ -1,0 +1,127 @@
+{
+    "page": {
+        "description": "Interactive WebGL painting simulation",
+        "title": "Paint",
+        "favicons": [
+            {
+                "path": "favicon-16x16.png",
+                "resolution": "16x16"
+            },
+            {
+                "path": "favicon-32x32.png",
+                "resolution": "32x32"
+            },
+            {
+                "path": "favicon-96x96.png",
+                "resolution": "96x96"
+            }
+        ],
+        "css": [
+            "css/demo-min.css",
+            "css/ui-min.css",
+            "css/footer-min.css"
+        ],
+        "scripts": [
+            "scripts/ui-min.js",
+            "scripts/gl-utils.js",
+            "scripts/sampler2D.js",
+            "scripts/background.js",
+            "scripts/flowmap.js",
+            "scripts/particles.js",
+            "scripts/scene.js",
+            "scripts/controls.js",
+            "scripts/main.js"
+        ]
+    },
+    "demo": {
+        "title": "Paint",
+        "github_page": "https://github.com/piellardj/paint-webgl",
+        "description": [
+            "This project is a WebGL simulation of a dynamic painting running entirely on GPU.\nYou can interact with it using the left mouse button."
+        ],
+        "canvas": {
+            "id": "glcanvas",
+            "width": 768,
+            "height": 432
+        },
+        "control_blocks": [
+            {
+                "title": "Paint",
+                "controls": [
+                    {
+                        "type": "range",
+                        "id": "amount-slider",
+                        "name": "Amount:",
+                        "min": 0,
+                        "max": 4,
+                        "value": 2,
+                        "step": 1,
+                        "initial_state": ""
+                    },
+                    {
+                        "type": "range",
+                        "id": "size-slider",
+                        "name": "Size:",
+                        "min": 0.5,
+                        "max": 5,
+                        "value": 2,
+                        "step": 0.1,
+                        "initial_state": ""
+                    },
+                    {
+                        "type": "range",
+                        "id": "speed-slider",
+                        "name": "Speed:",
+                        "min": 0.1,
+                        "max": 2.9,
+                        "value": 1.5,
+                        "step": 0.1,
+                        "initial_state": ""
+                    },
+                    {
+                        "type": "range",
+                        "id": "resilience-slider",
+                        "name": "Resilience:",
+                        "min": 0,
+                        "max": 1,
+                        "value": 0.3,
+                        "step": 0.01,
+                        "initial_state": ""
+                    }
+                ]
+            },
+            {
+                "title": "Brush",
+                "controls": [
+                    {
+                        "type": "range",
+                        "id": "brush-size-slider",
+                        "name": "Radius:",
+                        "min": 5,
+                        "max": 100,
+                        "value": 40,
+                        "step": 0.1,
+                        "initial_state": ""
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "show-brush-checkbox",
+                        "name": "Show:",
+                        "initial_state": "checked"
+                    }
+                ]
+            },
+            {
+                "title": "Display",
+                "controls": [
+                    {
+                        "type": "checkbox",
+                        "id": "background-checkbox",
+                        "name": "Background:",
+                        "initial_state": ""
+                    }
+                ]
+            }
+        ]
+    }
+}

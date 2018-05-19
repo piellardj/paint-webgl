@@ -1,0 +1,29 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="#=(page.description)" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>#=(page.title)</title>
+  #_ if(page.favicons.length > 0) {
+
+  #_ }
+  #_ page.favicons.forEach(function(favicon) {
+    <link rel="icon" type="image/png" href="#=(favicon.path)" sizes=#=(favicon.resolution)>
+  #_ })
+  #_ if(page.css.length > 0) {
+
+  #_ }
+  #_ page.css.forEach(function(css) {
+  <link rel="stylesheet" type="text/css" href="#=(css)">
+  #_ })
+
+  <style>
+    .demo>canvas {
+      width: 100vw;
+      height: 56vw;
+      max-width: 1280px;
+      max-height: 720px;
+      margin: 0 0 24px 0;
+    }
+  </style>
+</head>

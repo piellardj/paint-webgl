@@ -1,0 +1,20 @@
+<div class="controls">
+  #_ for (let i = 0; i < control_blocks.length; ++i) {
+    #_ if (i != 0) {
+    
+    <hr/>
+    
+    #_ }
+    #_ const control_block = control_blocks[i];
+    # include ../partials/control-block.ejs
+  #_ }
+  
+  <hr/>
+
+  <div>fps:
+    <span id="fps-text"></span>
+  </div>
+  <div>particles:
+    <span id="nb-particles-text"></span>
+  </div>
+</div>

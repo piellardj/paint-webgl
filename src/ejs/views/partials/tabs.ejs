@@ -1,0 +1,6 @@
+<div class="tabs compact">
+    #_ tabs.options.forEach(function(option) {
+    <input type="radio" name="#=(tabs.options_name)" id="#=(option.id)" #=(option.initial_state)>
+    <label for="#=(option.id)">#=(option.label)</label>
+    #_ })
+  </div>
