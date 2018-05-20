@@ -29,7 +29,7 @@ void main(void) {
 uniform sampler2D uInitFlow;
 uniform sampler2D uFlow;
 
-uniform float uFactor;
+uniform float uFactor; //expeccted to be in [0, 1]
 
 varying vec2 sampleCoords;
 
@@ -37,8 +37,7 @@ void main(void) {
     vec4 initFlow = texture2D(uInitFlow, sampleCoords);
     vec4 flow = texture2D(uFlow, sampleCoords);
     
-    float factor = clamp(uFactor, 0.0, 1.0);
-    gl_FragColor = mix(flow, initFlow, factor);
+    gl_FragColor = mix(flow, initFlow, uFactor);
 }`;
 
   const changeFragSrc =

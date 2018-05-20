@@ -152,6 +152,7 @@ class Scene {
 
   /** @param {number} value */
   set flowResilienceSpeed(value) {
+    value = Math.min(1, Math.max(0, value));
     FlowmapShaders.resetShader().u["uFactor"].value = value;
   }
 
