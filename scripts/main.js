@@ -92,6 +92,7 @@ function main() {
   let lastUpdate = 0;
   function mainLoop(time) {
     time *= 0.001; //dt is now in seconds
+    time += 10; //to skip the initial stabilization phase
     let dt = time - lastUpdate;
     instantFPS = 1 / dt;
     lastUpdate = time;
