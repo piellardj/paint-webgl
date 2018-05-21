@@ -33,11 +33,15 @@ uniform float uFactor; //expeccted to be in [0, 1]
 
 varying vec2 sampleCoords;
 
+___FLOWMAP_COMMON___
+
 void main(void) {
-    vec4 initFlow = texture2D(uInitFlow, sampleCoords);
-    vec4 flow = texture2D(uFlow, sampleCoords);
+    vec2 initFlow = decodeFlow(texture2D(uInitFlow, sampleCoords));
+    vec2 flow = decodeFlow(texture2D(uFlow, sampleCoords));
     
-    gl_FragColor = mix(flow, initFlow, uFactor);
+    flow += min(abs(initFlow - flow), vec2(uFactor)) * sign(initFlow - flow);
+
+    gl_FragColor = encodeFlow(flow);
 }`;
 
   const changeFragSrc =
@@ -73,7 +77,9 @@ void main(void) {
    */
   function buildResetShader(gl) {
     if (resetShader === null) {
-      resetShader = Shader.fromString(gl, vertSrc, resetFragSrc);
+      const fragSrc = resetFragSrc.replace(/___FLOWMAP_COMMON___/g, encoding);
+
+      resetShader = Shader.fromString(gl, vertSrc, fragSrc);
       resetShader.a["aSampleCoords"].VBO = VBO.createQuad(gl, 0, 0, 1, 1);
     }
   }
