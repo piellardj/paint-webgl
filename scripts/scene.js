@@ -350,15 +350,15 @@ class Scene {
     }
       
    /* Display of the backgrounds */
-    if (this.showBackground) {
+    if (this.showBackground && this._layers.length > 0) {
       const displayBackgroundShader = BackgroundShaders.displayShader();
       
       gl.useProgram(displayBackgroundShader);
       gl.enable(gl.BLEND);
-      for(let layer of this._layers) {
-        displayBackgroundShader.u["uDepth"].value = layer.depth;    
-        layer.background.draw(gl);
-      }
+
+      const layer = this._layers[0];
+      displayBackgroundShader.u["uDepth"].value = layer.depth;    
+      layer.background.draw(gl);
     }
    
     /* Display of the brush */

@@ -123,7 +123,8 @@
                     {
                         "type": "checkbox",
                         "id": "background-checkbox",
-                        "name": "Background:"
+                        "name": "Background:",
+                        "checked": true
                     }
                 ]
             }
