@@ -1,10 +1,6 @@
-const OUTPUT = "index.html";
-const VIEWS_FOLDER = "src/ejs/views/";
-const DATA_FILE = "src/ejs/data.json";
-
+/* File loader 1.0.0 */
 const fs = require("fs");
 
-/* Custom file loader */
 const ALIASES = [
     {keyword: "#=", open: "<%=", close: "%>"},
     {keyword: "#_", open: "<%_", close: "_%>"},
@@ -18,23 +14,33 @@ const fileLoader = function(filepath) {
 
         /* inline commands, then full line commands */
         template = template.replace(new RegExp(alias.keyword + "\\(([^\)]*)\\)", "mg"), replacement);
-        template = template.replace(new RegExp("[ \t]*" + alias.keyword + " (.*)", "mg"), replacement);
+        template = template.replace(new RegExp("^[ \t]*" + alias.keyword + " (.*)$", "mg"), replacement);
     });
 
+    //if (filepath.includes('card-1')) throw new Error(template);
     return template;
 };
 
 const ejs = require("ejs");
-ejs.render
 ejs.fileLoader = fileLoader;
 
-const data = JSON.parse(fs.readFileSync(DATA_FILE));
-
 /* HTML generation */
-const htmlContent = fs.readFileSync(VIEWS_FOLDER + 'pages/demo-page.ejs', 'utf8');
-const generated = ejs.render(htmlContent, data, {filename: VIEWS_FOLDER + 'pages/index.ejs'});
+const files = JSON.parse(fs.readFileSync("src/ejs/build-html.json"));
 
-const pretty = require('pretty');
-prettyfied = pretty(generated);
+files.forEach(function(file) {
+    const filepath = 'src/ejs/views/pages/' + file.src + '.ejs';
+    const output = file.output + '.html';
 
-fs.writeFileSync(OUTPUT, prettyfied, ['utf8']);
+    let data = {};
+    if (file.data && file.data !== "") {
+        data = JSON.parse(fs.readFileSync('src/ejs/views/pages/' + file.data));
+    }
+
+    const htmlContent = fileLoader(filepath);
+    const generated = ejs.render(htmlContent, data, {filename: filepath});
+
+    const pretty = require('pretty');
+    prettyfied = pretty(generated);
+
+    fs.writeFileSync(output, prettyfied, ['utf8']);
+});

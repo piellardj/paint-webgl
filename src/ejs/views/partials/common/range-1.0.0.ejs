@@ -1,0 +1,4 @@
+#_ { const initialState = (range.enabled === false) ? "disabled" : "";
+<input type="range" min="#=(range.min)" max="#=(range.max)" value="#=(range.value)" step="#=(range.step)" class="slider" id="#=(range.id)" #=(initialState)>
+<span class="tooltip"></span>
+#_ }

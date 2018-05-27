@@ -4,8 +4,8 @@
   "description": "Interactive paint simulation",
   "main": "index.js",
   "scripts": {
-    "clean": "shx rm -rf index.html",
-    "html-build": "node src/ejs/build-html.js"
+    "build:html": "node src/ejs/build-html.js",
+    "clean": "shx rm -rf index.html"
   },
   "repository": {
     "type": "git",

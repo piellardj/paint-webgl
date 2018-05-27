@@ -4,25 +4,22 @@
   <head>
     <meta charset="utf-8">
     <meta name="description" content="Interactive WebGL painting simulation" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Paint</title>
 
-    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes=16x16>
-    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes=32x32>
-    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes=96x96>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="css/demo-min.css">
-    <link rel="stylesheet" type="text/css" href="css/ui-min.css">
-    <link rel="stylesheet" type="text/css" href="css/footer-min.css">
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="favicon-196x196.png" sizes="196x196">
+
+    <link rel="stylesheet" type="text/css" href="css/demopage-1.0.0.min.css">
 
     <style>
       .demo>canvas {
-        width: 100vw;
-        height: 56vw;
+        width: 96vw;
+        height: 54vw;
         max-width: 1280px;
         max-height: 720px;
-        margin: 0 0 24px 0;
       }
     </style>
   </head>
@@ -35,6 +32,11 @@
         <p>This project is a WebGL simulation of a dynamic painting running entirely on GPU. You can interact with it using the left mouse button.</p>
 
         <a href="https://github.com/piellardj/paint-webgl">More on GitHub</a>
+        <br/>
+        <br/>
+        <a href="https://github.com/piellardj/paint-webgl">Additional link</a>
+        <br/>
+        <a href="fakeURL">Another one</a>
       </div>
 
       <div class="demo">
@@ -48,21 +50,32 @@
                 <label for="amount-slider">Amount:</label>
                 <input type="range" min="0" max="4" value="2" step="1" class="slider" id="amount-slider">
                 <span class="tooltip"></span>
+
               </div>
               <div class="control">
                 <label for="size-slider">Size:</label>
                 <input type="range" min="0.5" max="5" value="2" step="0.1" class="slider" id="size-slider">
                 <span class="tooltip"></span>
+
               </div>
               <div class="control">
                 <label for="speed-slider">Speed:</label>
                 <input type="range" min="0.1" max="2.9" value="1.5" step="0.1" class="slider" id="speed-slider">
                 <span class="tooltip"></span>
+
               </div>
               <div class="control">
                 <label for="resilience-slider">Resilience:</label>
                 <input type="range" min="0" max="0.1" value="0.05" step="0.005" class="slider" id="resilience-slider">
                 <span class="tooltip"></span>
+
+              </div>
+              <div class="control">
+                <label for="show-brush-checkbox2">Show:</label>
+                <div class="checkbox">
+                  <input type="checkbox" id="show-brush-checkbox2">
+                  <label for="show-brush-checkbox2" class="checkmark"></label>
+                </div>
               </div>
             </div>
           </section>
@@ -73,14 +86,26 @@
             <h2>Brush</h2>
             <div class="block-content">
               <div class="control">
+                <label>Gender</label>
+                <div class="tabs compact">
+                  <input type="radio" name="gender" value="male" id="gender-male" />
+                  <label for="gender-male">Male</label>
+                  <input type="radio" name="gender" value="female" id="gender-female" checked/>
+                  <label for="gender-female">Female</label>
+                  <input type="radio" name="gender" value="other" id="gender-other" />
+                  <label for="gender-other">Other</label>
+                </div>
+              </div>
+              <div class="control">
                 <label for="brush-size-slider">Radius:</label>
                 <input type="range" min="5" max="100" value="40" step="0.1" class="slider" id="brush-size-slider">
                 <span class="tooltip"></span>
+
               </div>
               <div class="control">
                 <label for="show-brush-checkbox">Show:</label>
                 <div class="checkbox">
-                  <input type="checkbox" id="show-brush-checkbox" checked>
+                  <input type="checkbox" id="show-brush-checkbox">
                   <label for="show-brush-checkbox" class="checkmark"></label>
                 </div>
               </div>
@@ -106,9 +131,6 @@
 
           <div>fps:
             <span id="fps-text"></span>
-          </div>
-          <div>particles:
-            <span id="nb-particles-text"></span>
           </div>
         </div>
       </div>
@@ -139,7 +161,7 @@
       </div>
     </footer>
 
-    <script src="scripts/ui-min.js"></script>
+    <script src="scripts/ui-1.0.0.min.js"></script>
     <script src="scripts/gl-utils.js"></script>
     <script src="scripts/sampler2D.js"></script>
     <script src="scripts/background.js"></script>
