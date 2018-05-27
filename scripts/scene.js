@@ -20,11 +20,13 @@ void main(void) {
   const brushFragSrc =
 `precision mediump float;
 
+uniform float uThickness;
+
 varying vec2 toCenter;
 
 void main(void) {
     float dist = length(toCenter);
-    if (dist < 0.9 || dist > 1.0)
+    if (dist < 1.0 - uThickness || dist > 1.0)
         discard;
     
     const vec3 color = vec3(1);
@@ -364,6 +366,7 @@ class Scene {
     /* Display of the brush */
     if (this.showBrush) {
       const brushShader = SceneShaders.displayBrushShader();
+      brushShader.u["uThickness"].value = 20 / canvasSize[0];
       gl.useProgram(brushShader);
       brushShader.bindUniformsAndAttributes(gl);
       gl.disable(gl.DEPTH_TEST);
