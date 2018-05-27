@@ -53,6 +53,10 @@
             {
                 "name": "fps",
                 "id": "fps-text"
+            },
+            {
+                "name": "particles",
+                "id": "nb-particles-text"
             }
         ],
         "control_blocks": [
