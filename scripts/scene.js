@@ -340,7 +340,7 @@ class Scene {
     
     /* Display of the particles */
     let drawShader = ParticlesShaders.drawShader();
-    drawShader.u["uCanvasSize"].value = canvasSize;
+    drawShader.u["uCanvasSize"].value = [1280, 720];
     drawShader.u["uTime"].value = time;
     
     gl.useProgram(drawShader);
