@@ -1,22 +1,19 @@
 {
   "name": "paint-webgl",
-  "version": "1.0.0",
-  "description": "Interactive paint simulation",
-  "main": "index.js",
-  "scripts": {
-    "build:html": "node src/ejs/build-html.js",
-    "clean": "shx rm -rf index.html"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/piellardj/paint-webgl/"
-  },
-  "author": "Jérémie PIELLARD",
-  "license": "ISC",
+  "version": "2.0.0",
   "homepage": "https://piellardj.github.io/paint-webgl/",
-  "dependencies": {
-    "ejs": "^2.6.1",
-    "pretty": "^2.0.0",
-    "shx": "^0.2.2"
+  "description": "Interactive paint simulation",
+  "scripts": {
+    "build-page": "node src/generate-page.js",
+    "clean": "shx rm -rf docs/*",
+    "rebuild": "npm run clean && npm run build-page"
+  },
+  "author": "Jérémie Piellard <jeremie.piellard@gmail.com> (https://github.com/piellardj)",
+  "repository": "github:piellardj/paint-webgl",
+  "license": "ISC",
+  "devDependencies": {
+    "fs-extra": "^7.0.1",
+    "shx": "^0.3.2",
+    "webpage-templates": "github:piellardj/webpage-templates"
   }
 }
