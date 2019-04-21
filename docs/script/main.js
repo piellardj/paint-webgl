@@ -92,7 +92,7 @@ function main() {
   let instantFPS = 0;
   const updateIndicators = function() {
     Canvas.setIndicatorText("fps", instantFPS.toFixed(0));
-    Canvas.setIndicatorText("number-of-particles", scene.nbParticles);
+    Canvas.setIndicatorText("number-of-particles", scene.nbParticles.toLocaleString());
   };
   setInterval(updateIndicators, 1000);
   
