@@ -100,7 +100,7 @@
                     "title": "Background",
                     "type": "checkbox",
                     "id": "show-background-checkbox-id",
-                    "checked": true
+                    "checked": false
                 },
                 {
                     "title": "Show indicators",
