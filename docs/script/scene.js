@@ -7,11 +7,12 @@ const SceneShaders = (function() {
 uniform vec2 uBrushSize; //relative, in [0,1]x[0,1]
 uniform vec2 uBrushPos; //relative, in [0,1]x[0,1]
 
+varying float thickness;
 varying vec2 toCenter;
 
 void main(void) {
     toCenter = -aCorner;
-    
+    thickness = 0.002 / min(uBrushSize[0], uBrushSize[1]);
     vec2 pos = uBrushPos + aCorner * uBrushSize;
     
     gl_Position = vec4(2.0 * pos - 1.0, 0, 1);
@@ -20,13 +21,12 @@ void main(void) {
   const brushFragSrc =
 `precision mediump float;
 
-uniform float uThickness;
-
+varying float thickness;
 varying vec2 toCenter;
 
 void main(void) {
     float dist = length(toCenter);
-    if (dist < 1.0 - uThickness || dist > 1.0)
+    if (dist < 1.0 - thickness || dist > 1.0)
         discard;
     
     const vec3 color = vec3(1);
@@ -357,7 +357,7 @@ class Scene {
     /* Display of the brush */
     if (this.showBrush) {
       const brushShader = SceneShaders.displayBrushShader();
-      brushShader.u["uThickness"].value = 20 / canvasSize[0];
+      // brushShader.u["uThickness"].value = 20;
       gl.useProgram(brushShader);
       brushShader.bindUniformsAndAttributes(gl);
       gl.disable(gl.DEPTH_TEST);

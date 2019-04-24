@@ -36,6 +36,12 @@ var Parameters = (function(){
         const updateBrushSize = (brushSize) => { scene.brushRadius = brushSize; };
         Range.addObserver(BRUSH_SIZE_CONTROL_ID, updateBrushSize);
         updateBrushSize(Range.getValue(BRUSH_SIZE_CONTROL_ID));
+
+        Canvas.Observers.mouseWheel.push(function(delta) {
+          const previousValue = Range.getValue(BRUSH_SIZE_CONTROL_ID);
+          Range.setValue(BRUSH_SIZE_CONTROL_ID, previousValue + 5 * delta);
+          updateBrushSize(Range.getValue(BRUSH_SIZE_CONTROL_ID));
+        });
       }
 
       {
