@@ -7,7 +7,7 @@
  */
 function initGL(canvas, flags) {
   function setError(message) {
-    Demopage.setErrorMessage("webgl-support", message);
+    Page.Demopage.setErrorMessage("webgl-support", message);
   }
 
   let gl = canvas.getContext("webgl", flags);
@@ -34,7 +34,7 @@ function initGL(canvas, flags) {
 
 function checkRequirements(gl) {
   function setError(message) {
-    Demopage.setErrorMessage("webgl-requirements", message);
+    Page.Demopage.setErrorMessage("webgl-requirements", message);
   }
 
   const vertexUnits = gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS);
@@ -55,7 +55,7 @@ function checkRequirements(gl) {
 }
 
 function main() {
-  const canvas = Canvas.getCanvas();
+  const canvas = Page.Canvas.getCanvas();
   const gl = initGL(canvas);
   if (!gl)
     return;
@@ -91,8 +91,8 @@ function main() {
   /* Update the FPS indicator every second. */
   let instantFPS = 0;
   const updateIndicators = function() {
-    Canvas.setIndicatorText("fps", instantFPS.toFixed(0));
-    Canvas.setIndicatorText("number-of-particles", scene.nbParticles.toLocaleString());
+    Page.Canvas.setIndicatorText("fps", instantFPS.toFixed(0));
+    Page.Canvas.setIndicatorText("number-of-particles", scene.nbParticles.toLocaleString());
   };
   setInterval(updateIndicators, 1000);
   

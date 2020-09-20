@@ -174,7 +174,7 @@ class Scene {
     
     gl.disable(gl.BLEND);
     gl.disable(gl.DEPTH_TEST);
-    if (Canvas.isMouseDown()) {
+    if (Page.Canvas.isMouseDown()) {
       gl.useProgram(FlowmapShaders.changeShader());
       for (let layer of this._layers) {
         layer.flowmap.change(this.gl);
