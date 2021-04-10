@@ -1,6 +1,5 @@
 {
   "name": "paint-webgl",
-  "version": "2.1.0",
   "homepage": "https://piellardj.github.io/paint-webgl/",
   "description": "Interactive paint simulation",
   "scripts": {
