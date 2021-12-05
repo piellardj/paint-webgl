@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var Page;
 (function (Page) {
     var Demopage;
@@ -44,7 +43,6 @@ var Page;
     })(Demopage = Page.Demopage || (Page.Demopage = {}));
 })(Page || (Page = {}));
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var Page;
 (function (Page) {
     var Helpers;
@@ -163,7 +161,6 @@ var Page;
     })(Helpers = Page.Helpers || (Page.Helpers = {}));
 })(Page || (Page = {}));
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var Page;
 (function (Page) {
     var Controls;
@@ -184,7 +181,6 @@ var Page;
         Controls.setVisibility = setVisibility;
     })(Controls = Page.Controls || (Page.Controls = {}));
 })(Page || (Page = {}));
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 (function (Page) {
     var Sections;
     (function (Sections) {
@@ -245,7 +241,6 @@ var Page;
 })(Page || (Page = {}));
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var Page;
 (function (Page) {
     var Range;
@@ -259,22 +254,20 @@ var Page;
                 this.progressLeftElement = container.querySelector(".range-progress-left");
                 this.tooltipElement = container.querySelector("output.range-tooltip");
                 this.id = this.inputElement.id;
+                var inputMin = +this.inputElement.min;
+                var inputMax = +this.inputElement.max;
+                var inputStep = +this.inputElement.step;
+                this.nbDecimalsToDisplay = Range.getMaxNbDecimals(inputMin, inputMax, inputStep);
                 this.inputElement.addEventListener("input", function (event) {
                     event.stopPropagation();
                     _this.reloadValue();
-                    for (var _i = 0, _a = _this.onInputObservers; _i < _a.length; _i++) {
-                        var observer = _a[_i];
-                        observer(_this.value);
-                    }
+                    _this.callSpecificObservers(_this.onInputObservers);
                 });
                 this.inputElement.addEventListener("change", function (event) {
                     event.stopPropagation();
                     _this.reloadValue();
                     Storage.storeState(_this);
-                    for (var _i = 0, _a = _this.onChangeObservers; _i < _a.length; _i++) {
-                        var observer = _a[_i];
-                        observer(_this.value);
-                    }
+                    _this.callSpecificObservers(_this.onChangeObservers);
                 });
                 this.reloadValue();
             }
@@ -285,14 +278,17 @@ var Page;
                 set: function (newValue) {
                     this.inputElement.value = "" + newValue;
                     this.reloadValue();
-                    this.callObservers();
                 },
                 enumerable: false,
                 configurable: true
             });
             Range.prototype.callObservers = function () {
-                for (var _i = 0, _a = this.onChangeObservers; _i < _a.length; _i++) {
-                    var observer = _a[_i];
+                this.callSpecificObservers(this.onInputObservers);
+                this.callSpecificObservers(this.onChangeObservers);
+            };
+            Range.prototype.callSpecificObservers = function (observers) {
+                for (var _i = 0, observers_1 = observers; _i < observers_1.length; _i++) {
+                    var observer = observers_1[_i];
                     observer(this.value);
                 }
             };
@@ -302,11 +298,46 @@ var Page;
                 var progression = currentLength / totalLength;
                 progression = Math.max(0, Math.min(1, progression));
                 this.progressLeftElement.style.width = (100 * progression) + "%";
-                this.tooltipElement.textContent = this.inputElement.value;
+                var text;
+                if (this.nbDecimalsToDisplay < 0) {
+                    text = this.inputElement.value;
+                }
+                else {
+                    text = (+this.inputElement.value).toFixed(this.nbDecimalsToDisplay);
+                }
+                this.tooltipElement.textContent = text;
             };
             Range.prototype.reloadValue = function () {
                 this._value = +this.inputElement.value;
                 this.updateAppearance();
+            };
+            Range.getMaxNbDecimals = function () {
+                var numbers = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    numbers[_i] = arguments[_i];
+                }
+                var nbDecimals = -1;
+                for (var _a = 0, numbers_1 = numbers; _a < numbers_1.length; _a++) {
+                    var n = numbers_1[_a];
+                    var local = Range.nbDecimals(n);
+                    if (n < 0) {
+                        return -1;
+                    }
+                    else if (nbDecimals < local) {
+                        nbDecimals = local;
+                    }
+                }
+                return nbDecimals;
+            };
+            Range.nbDecimals = function (x) {
+                var xAsString = x.toString();
+                if (/^[0-9]+$/.test(xAsString)) {
+                    return 0;
+                }
+                else if (/^[0-9]+\.[0-9]+$/.test(xAsString)) {
+                    return xAsString.length - (xAsString.indexOf(".") + 1);
+                }
+                return -1; // failed to parse
             };
             return Range;
         }());
@@ -344,6 +375,10 @@ var Page;
                 Page.Helpers.URL.setQueryParameter(PREFIX, range.id, valueAsString);
             }
             Storage.storeState = storeState;
+            function clearStoredState(range) {
+                Page.Helpers.URL.removeQueryParameter(PREFIX, range.id);
+            }
+            Storage.clearStoredState = clearStoredState;
             function applyStoredState() {
                 Page.Helpers.URL.loopOnParameters(PREFIX, function (controlId, value) {
                     var range = Cache.getRangeById(controlId);
@@ -353,6 +388,7 @@ var Page;
                     }
                     else {
                         range.value = +value;
+                        range.callObservers();
                     }
                 });
             }
@@ -362,7 +398,8 @@ var Page;
             Cache.load();
             Storage.applyStoredState();
         });
-        var isIE11 = !!window.MSInputMethodContext && !!document["documentMode"];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
         /**
          * Callback will be called every time the value changes.
          * @return {boolean} Whether or not the observer was added
@@ -409,11 +446,20 @@ var Page;
             }
         }
         Range_1.setValue = setValue;
+        function storeState(rangeId) {
+            var range = Cache.getRangeById(rangeId);
+            Storage.storeState(range);
+        }
+        Range_1.storeState = storeState;
+        function clearStoredState(rangeId) {
+            var range = Cache.getRangeById(rangeId);
+            Storage.clearStoredState(range);
+        }
+        Range_1.clearStoredState = clearStoredState;
     })(Range = Page.Range || (Page.Range = {}));
 })(Page || (Page = {}));
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var Page;
 (function (Page) {
     var Checkbox;
@@ -438,7 +484,6 @@ var Page;
                 set: function (newChecked) {
                     this.element.checked = newChecked;
                     this.reloadValue();
-                    this.callObservers();
                 },
                 enumerable: false,
                 configurable: true
@@ -489,6 +534,10 @@ var Page;
                 Page.Helpers.URL.setQueryParameter(PREFIX, checkbox.id, stateAsString);
             }
             Storage.storeState = storeState;
+            function clearStoredState(checkbox) {
+                Page.Helpers.URL.removeQueryParameter(PREFIX, checkbox.id);
+            }
+            Storage.clearStoredState = clearStoredState;
             function applyStoredState() {
                 Page.Helpers.URL.loopOnParameters(PREFIX, function (checkboxId, value) {
                     var checkbox = Cache.getCheckboxById(checkboxId);
@@ -498,6 +547,7 @@ var Page;
                     }
                     else {
                         checkbox.checked = (value === CHECKED);
+                        checkbox.callObservers();
                     }
                 });
             }
@@ -534,11 +584,21 @@ var Page;
             return false;
         }
         Checkbox_1.isChecked = isChecked;
+        function storeState(checkboxId) {
+            var checkbox = Cache.getCheckboxById(checkboxId);
+            Storage.storeState(checkbox);
+        }
+        Checkbox_1.storeState = storeState;
+        function clearStoredState(checkboxId) {
+            var checkbox = Cache.getCheckboxById(checkboxId);
+            Storage.clearStoredState(checkbox);
+        }
+        Checkbox_1.clearStoredState = clearStoredState;
     })(Checkbox = Page.Checkbox || (Page.Checkbox = {}));
 })(Page || (Page = {}));
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 var Page;
 (function (Page) {
     var Canvas;
@@ -655,10 +715,11 @@ var Page;
         }
         var Mouse;
         (function (Mouse) {
-            var mousePosition = [];
+            var mousePosition = [0, 0];
+            var clientMousePosition = [0, 0];
             var isMouseDownInternal = false;
             function getMousePosition() {
-                return mousePosition.slice();
+                return [mousePosition[0], mousePosition[1]];
             }
             Mouse.getMousePosition = getMousePosition;
             function setMousePosition(x, y) {
@@ -691,6 +752,8 @@ var Page;
             }
             Mouse.mouseUp = mouseUp;
             function mouseMove(clientX, clientY) {
+                clientMousePosition[0] = clientX;
+                clientMousePosition[1] = clientY;
                 var newPos = clientToRelative(clientX, clientY);
                 var dX = newPos[0] - mousePosition[0];
                 var dY = newPos[1] - mousePosition[1];
@@ -748,11 +811,12 @@ var Page;
                         mouseUp();
                     }
                 });
+                canvasResizeObservers.push(function () {
+                    mouseMove(clientMousePosition[0], clientMousePosition[1]);
+                });
             }
         })(Mouse || (Mouse = {}));
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        var Touch;
-        (function (Touch) {
+        (function Touch() {
             var currentTouches = [];
             var currentDistance = 0; // for pinching management
             function computeDistance(firstTouch, secondTouch) {
@@ -845,7 +909,7 @@ var Page;
                 window.addEventListener("touchend", handleTouchEnd);
                 window.addEventListener("touchmove", handleTouchMove, { passive: false });
             }
-        })(Touch || (Touch = {}));
+        })();
         var Indicators;
         (function (Indicators) {
             var indicatorSpansCache = {};
