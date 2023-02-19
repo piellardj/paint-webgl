@@ -12,9 +12,6 @@
     "clean": "shx rm -rf docs/*",
     "rebuild": "npm run clean && npm run build-page"
   },
-  "engine": {
-    "node": ">=16.13.0"
-  },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.11.11",
