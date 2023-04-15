@@ -9,6 +9,10 @@ const data = {
         "This project is a WebGL simulation of a dynamic painting running entirely on GPU. Each paint stroke is moving along an invisible vector field. You can interact with it using the left mouse button."
     ],
     githubProjectName: "paint-webgl",
+    readme: {
+        filepath: path.join(__dirname, "..", "README.md"),
+        branchName: "master"
+    },
     additionalLinks: [],
     scriptFiles: [
         "script/gl-utils.js",
