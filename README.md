@@ -5,6 +5,8 @@ Live version [here](https://piellardj.github.io/paint-webgl).
 
 This is a WebGL port of the visualization part of my OpenGL project [flow-gpu](https://github.com/piellardj/flow-gpu).
 
+[![Donate](https://raw.githubusercontent.com/piellardj/piellardj.github.io/master/images/readme/donate-paypal.svg)](https://www.paypal.com/donate/?hosted_button_id=AF7H7GEJTL95E)
+
 # Description
 
 The painting is actually the superposition of several layers.
